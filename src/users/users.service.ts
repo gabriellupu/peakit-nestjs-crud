@@ -9,3 +9,17 @@ export class UsersService extends TypeOrmCrudService<User> {
         super(repo);
     }
 }
+
+// @ts-ignore
+// TODO - temporary hack to fix
+// https://github.com/nestjsx/crud/issues/98
+UsersService.prototype.getJoinType = function getJoinType(relationType: string) {
+    switch (relationType) {
+        case 'many-to-one':
+        case 'one-to-many':
+            return 'leftJoin';
+
+        default:
+            return 'leftJoin';
+    }
+};
